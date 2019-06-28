@@ -156,7 +156,7 @@ then the Y-axis rotation stored is Y[i]  is passed to:
 **This is due to the fact that the elbow is vertically mirrored with the shoulder and only 66% of the movement is due to the shoulder joint.
 
 This loop will run for all values of ‘i’ in the closed set [0, posrec], where ‘posrec’ was the highest recorded value of ‘i’ during the record phase of the main loop. 
-This is done to ensure that any null values that may be left over in the array during the recording phase is not passed down to the servos during the playback phase of the loop, as:
+This is done to ensure that any null values that may be left over in the array during the recording phase are not passed down to the servos during the playback phase of the loop, as:
 
 		<90.000 + ‘o/’> is an undefined value.
 
