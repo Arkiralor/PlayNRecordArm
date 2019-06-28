@@ -71,7 +71,6 @@ void loop()
     base.attach(3); //attaching 'base' to digital pin 3 (PWM).
     shoulder.attach(5); //attaching 'shoulder' to digital pin 5 (PWM).
     elbow.attach(6); //attaching 'elbow' to digital pin 6 (PWM).
-    hand.attach(9); //attaching 'hand' to digital pin 9 (PWM).
     
     base.write(90); //setting base to 90 deg.
     shoulder.write(90); //setting shoulder to 90 deg.
