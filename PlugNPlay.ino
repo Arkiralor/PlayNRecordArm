@@ -5,6 +5,7 @@
   Please read the README.MD and CIRCUITDIAGRAM.PNG before using.
 */
 
+
 #include <Servo.h> //header file for servoes.
 #include <Wire.h> //header file for I2C communication protocol.
 #include <MPU6050_tockn.h> //3rd party header for getting IMU readings.
@@ -44,16 +45,15 @@ void setup()
 
 void loop() 
 {
-   while(digitalRead(recorder)==HIGH && digitalRead(player)==LOW) //as long as the record button is closed.
+   while(digitalRead(recorder)==HIGH && digitalRead(player)==LOW && i<70) //as long as the record button is closed.
    {
       base.detach(); //detaching 'base' from digital pin 3 (PWM).
       shoulder.detach(); //detaching 'shoulder' from digital pin 5 (PWM).
       elbow.detach(); //detaching 'elbow' from digital pin 6 (PWM).
-      
-     Serial.println("Recording ON!"); //serial monitor o/p to signal that the user can start recording.
+      Serial.println("Recording ON!"); //serial monitor o/p to signal that the user can start recording.
     
-    if(millis()-timer>500) //take a reading every 500ms.
-    {
+      if(millis()-timer>500) //take a reading every 500ms.
+      {
         recordarray(); //record the movements of the arms.
       
         posrec=i; //update the position variable.
@@ -61,8 +61,8 @@ void loop()
         timer=millis(); //updates elasped time.
         Serial.println(millis());
         Serial.print(" ms elapsed.");
+      }
     }
-  }
   
   while(digitalRead(recorder)==LOW && digitalRead(player)==HIGH) //as long as the play button is closed.
   {
@@ -71,10 +71,11 @@ void loop()
     base.attach(3); //attaching 'base' to digital pin 3 (PWM).
     shoulder.attach(5); //attaching 'shoulder' to digital pin 5 (PWM).
     elbow.attach(6); //attaching 'elbow' to digital pin 6 (PWM).
+    hand.attach(9); //attaching 'hand' to digital pin 9 (PWM).
     
-    base.write(p); //setting base to 90 deg.
-    shoulder.write(p); //setting shoulder to 90 deg.
-    elbow.write(p); //setting elbow to 90 deg.
+    base.write(90); //setting base to 90 deg.
+    shoulder.write(90); //setting shoulder to 90 deg.
+    elbow.write(90); //setting elbow to 90 deg.
     
     playarray(); //playback the recorded movements.
   }
@@ -95,49 +96,20 @@ void playarray()
 {
   for(i=0;i<=posrec;i+=1) //loop repeats for i=0 to i<=posrec.
   {
-    //Please note that we are taking 90 degrees as the 0-position of the arm.
-    if(arrayz[i]<0)
-    {
-      base.write(p+arrayz[i]); //if rotation is Cwise i.e, negative.
-      Serial.println("Base record: ");
-      Serial.print(arrayz[i]);
-      Serial.println("");
-    }
-    else if (arrayz[i]>=0) //if rotation is CCwise i.e, positive.
-    {
-      base.write(p-arrayz[i]);
-      Serial.println("Base record: ");
-      Serial.print(arrayz[i]);
-      Serial.println("");
-    }
+    base.write(90+arrayz[i]); //rotate base according to Z-value.
+    Serial.println("Base record: ");
+    Serial.print(arrayz[i]);
+    Serial.println("");
 
-    if(arrayy[i]<0) //if rotation is Cwise i.e, negative.
-    {
-      shoulder.write(p+arrayy[i]*0.66); //Only 66% of Y-axis rotation is due to 'shoulder'.
-      Serial.println("Shoulder record: ");
-      Serial.print(arrayy[i]*0.66);
-      Serial.println("");
+    shoulder.write(90+arrayy[i]*0.66); //rotate shoulder by 66% of Y-value.
+    Serial.println("Shoulder record: ");
+    Serial.print(arrayy[i]*0.66);
+    Serial.println("");
       
-      elbow.write(p-arrayy[i]*0.33); //'elbow' is vertically mirrored with 'shoulder'.
-      Serial.println("Elbow record: ");
-      Serial.print(arrayy[i]*0.33);
-      Serial.println("");
-    
-    //the shoulder and elbow are vertically mirrored and their ratio of rotation is 2:1.
-    }
-    else if (arrayy[i]>=0) //if rotation is CCwise i.e, positive.
-    {
-      shoulder.write(p-arrayy[i]*0.66); //Only 66% of Y-axis rotation is due to 'shoulder'.
-      Serial.println("Shoulder record: ");
-      Serial.print(arrayy[i]*0.66);
-      Serial.println("");
-      
-      elbow.write(p+arrayy[i]*0.33); //'elbow' is vertically mirrored with 'shoulder'.
-      Serial.println("Elbow record: ");
-      Serial.print(arrayy[i]*0.33);
-      Serial.println("");
-    
-    //the shoulder and elbow are vertically mirrored and their ratio of rotation is 2:1.
-    }
-  }
+    elbow.write(90-arrayy[i]*0.33); //rotate elbow by 33% of -(Y-value) as the elbow is mirrored to the shoulder (keystone of Y-axis).
+    Serial.println("Elbow record: ");
+    Serial.print(arrayy[i]*0.33);
+    Serial.println("");
+    //Please note that we are taking 90 degrees as the 0-position of the arm.
+   }
 }
