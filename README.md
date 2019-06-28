@@ -221,12 +221,22 @@ This value is equal to 244.14kBps.
 REFERENCES
 
 [1] Peng Cheng, Student Member, IEEE, and Bengt Oelmann, Joint-Angle Measurement Using Accelerometers and Gyroscopes—A Survey, IEEE TRANSACTIONS ON INSTRUMENTATION AND MEASUREMENT, VOL. 59, NO. 2, FEBRUARY 2010
+
 [2] Ariful Islam Bhuyan, Tuton Chandra Mallick Department of Electrical and  Electronic Engineering, Premier University, Chittagong, Bangladesh, Gyro-Accelerometer based control of a robotic Arm using AVR Microcontroller, The 9th International Forum on Strategic Technology (IFOST), October 21-23, 2014, Cox’s Bazar, Bangladesh
+
 [3] J. Y. S. Luh, Senior Member IEEE, An Anatomy of Industrial Robots and Their Controls, Transactions on Automatic Control, Vol. AC-28, No. 2, February 1983
+
 [4] Arduino Playground, https://playground.arduino.cc/ 
+
 [5] TinkerCAD, https://www.tinkercad.com
+
 [6] EEEnthusiast, https://www.youtube.com/user/EEEnthusiast
+
 [7] Tockn, MPU6050_tockn.h, https://github.com/tockn/
+
 [8] Arduino Forum, https://forum.arduino.cc/
+
 [9] Maker Pro, https://maker.pro/
+
 [10] How to Mechatronics, https://howtomechatronics.com/
+
