@@ -1,5 +1,6 @@
 # PlayNRecordArm
-Abstract
+ABSTRACT
+
 Robots are mechanized automatons and may come in multiple shapes and sizes.
 The focus of our study would be a robotic arm such as one usually found in assembly-line deployments in factories around the globe. 
 Most of these arms are programmed to perform a fixed set of movements. Usually, these movesets are defined using a separate hardware or software interface. This presents a certain level of difficulty in configuring the machine.
@@ -9,6 +10,7 @@ Although this approach may reduce precision down to a human level, for general p
  
 
 CHAPTER 1: INTRODUCTION
+
 	A manually-trainable robotic arm is a mechanical appendage resembling a human forelimb that does not require any middleware for interfacing between the user and arm.
 For this kind of an arm, we physically move the arm to whatever position(s) we need it to be at, by pushing and pulling the arm and not a controller device while the arm is recording and when prompted, the arm plays back the movements as closely as possible, repeatedly.
 For the purpose of this project, we will be using an IMU named ‘MPU6050’ to record the rotational positions of the armatures that comprise the arm to a data-structure that we will then use to replay the stored movements. We will use a mathematical/logical function to convert the rotational position vectors stored in the data-structure to simple angular values between 0 degrees and 180 degrees that can be accepted by the servos which will act as the joints of the arm.
@@ -24,6 +26,7 @@ An Arduino Uno R3 with will be used as the brains of the mechanism to manage and
 
 
 CHAPTER 2: METHODOLOGY
+
 Our system will consist of three modules:
 	The Arduino itself
 	An MPU6050 IMU with a 3-Axis Gyroscope
@@ -162,7 +165,7 @@ This approach will hopefully be able to emulate any and all movements induced by
 
 
 
-IMPLEMENTATION
+CHAPTER 3: IMPLEMENTATION
 
 The mechanism will be implemented in Arduino, the coding for the brain will be done in the proprietary Arduino language which happens to be a subset of C/C++.
 The main algorithm will be as follows:
