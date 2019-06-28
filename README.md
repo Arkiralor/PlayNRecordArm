@@ -43,23 +43,16 @@ The system will start to read the array values sequentially: First Z[i], then Y[
 		
 The reading from Z[i] will be sent to the base servo, such that:
 		
-		if(Z[i] is non-negative)
 			set base to (90+Z[i]) degrees.
-		else
-			set base to (90-Z[i]) degrees.
-	  
+		
 
 The reading from Y[i] will be split between the shoulder and elbow servos in a 2:3 ratio and mirrored between them and they are vertically mirrored to each other, such that:
 
-		if(Y[i] is non-negative)
 			set shoulder to (90+Y[i]*0.6666) degrees.
 			set elbow to (90-Y[i]*0.3333) degrees.
-		else
-			set shoulder to (90-Y[i]*0.6666) degrees.
-			set elbow to (90+Y[i]*0.3333) degrees.
-			
+		
 This will repeat until the record switch is closed again, after I = posrec, the loop will start again from I = 0.
-	    2.1.1 Extracting Data from the MPU6050:
+	2.1.1 Extracting Data from the MPU6050:
 	The MPU6050 stores the data in an 8-bit sequence that can be extracted via:
 	
 		 rawGyroB = wire->read() << 8 | wire->read(); 
@@ -74,8 +67,7 @@ After we find the gyrorate for a given axis, we can find the angular displacemen
 	
 	angleGyroX += gyroX * interval;
 Where interval is the time elasped since the last reading from the IMU. 
-	
-  2.1.2 Signalling SG90 to rotate to an angular value:
+	2.1.2 Signalling SG90 to rotate to an angular value:
       
 The sg90, is signalled using PWM through a data pin with the function:
 
