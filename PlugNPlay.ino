@@ -46,21 +46,21 @@ void loop()
 {
    while(digitalRead(recorder)==HIGH && digitalRead(player)==LOW) //as long as the record button is closed.
    {
-    Serial.println("Recording ON!"); //serial monitor o/p to signal that the user can start recording.
-
-    base.detach(); //detaching 'base' from digital pin 3 (PWM).
-    shoulder.detach(); //detaching 'shoulder' from digital pin 5 (PWM).
-    elbow.detach(); //detaching 'elbow' from digital pin 6 (PWM).
+      base.detach(); //detaching 'base' from digital pin 3 (PWM).
+      shoulder.detach(); //detaching 'shoulder' from digital pin 5 (PWM).
+      elbow.detach(); //detaching 'elbow' from digital pin 6 (PWM).
+      
+     Serial.println("Recording ON!"); //serial monitor o/p to signal that the user can start recording.
     
     if(millis()-timer>500) //take a reading every 500ms.
     {
-      recordarray(); //record the movements of the arms.
+        recordarray(); //record the movements of the arms.
       
-      posrec=i; //update the position variable.
-      i++; //update array index.
-      timer=millis(); //updates elasped time.
-      Serial.println(millis());
-      Serial.print(" ms elapsed.");
+        posrec=i; //update the position variable.
+        i++; //update array index.
+        timer=millis(); //updates elasped time.
+        Serial.println(millis());
+        Serial.print(" ms elapsed.");
     }
   }
   
@@ -71,11 +71,10 @@ void loop()
     base.attach(3); //attaching 'base' to digital pin 3 (PWM).
     shoulder.attach(5); //attaching 'shoulder' to digital pin 5 (PWM).
     elbow.attach(6); //attaching 'elbow' to digital pin 6 (PWM).
-    hand.attach(9); //attaching 'hand' to digital pin 9 (PWM).
     
-    base.write(90); //setting base to 90 deg.
-    shoulder.write(90); //setting shoulder to 90 deg.
-    elbow.write(90); //setting elbow to 90 deg.
+    base.write(p); //setting base to 90 deg.
+    shoulder.write(p); //setting shoulder to 90 deg.
+    elbow.write(p); //setting elbow to 90 deg.
     
     playarray(); //playback the recorded movements.
   }
@@ -99,14 +98,14 @@ void playarray()
     //Please note that we are taking 90 degrees as the 0-position of the arm.
     if(arrayz[i]<0)
     {
-      base.write(90+arrayz[i]); //if rotation is Cwise i.e, negative.
+      base.write(p+arrayz[i]); //if rotation is Cwise i.e, negative.
       Serial.println("Base record: ");
       Serial.print(arrayz[i]);
       Serial.println("");
     }
     else if (arrayz[i]>=0) //if rotation is CCwise i.e, positive.
     {
-      base.write(90-arrayz[i]);
+      base.write(p-arrayz[i]);
       Serial.println("Base record: ");
       Serial.print(arrayz[i]);
       Serial.println("");
@@ -114,12 +113,12 @@ void playarray()
 
     if(arrayy[i]<0) //if rotation is Cwise i.e, negative.
     {
-      shoulder.write(90+arrayy[i]*0.66); //Only 66% of Y-axis rotation is due to 'shoulder'.
+      shoulder.write(p+arrayy[i]*0.66); //Only 66% of Y-axis rotation is due to 'shoulder'.
       Serial.println("Shoulder record: ");
       Serial.print(arrayy[i]*0.66);
       Serial.println("");
       
-      elbow.write(90-arrayy[i]*0.33); //'elbow' is vertically mirrored with 'shoulder'.
+      elbow.write(p-arrayy[i]*0.33); //'elbow' is vertically mirrored with 'shoulder'.
       Serial.println("Elbow record: ");
       Serial.print(arrayy[i]*0.33);
       Serial.println("");
@@ -128,12 +127,12 @@ void playarray()
     }
     else if (arrayy[i]>=0) //if rotation is CCwise i.e, positive.
     {
-      shoulder.write(90-arrayy[i]*0.66); //Only 66% of Y-axis rotation is due to 'shoulder'.
+      shoulder.write(p-arrayy[i]*0.66); //Only 66% of Y-axis rotation is due to 'shoulder'.
       Serial.println("Shoulder record: ");
       Serial.print(arrayy[i]*0.66);
       Serial.println("");
       
-      elbow.write(90+arrayy[i]*0.33); //'elbow' is vertically mirrored with 'shoulder'.
+      elbow.write(p+arrayy[i]*0.33); //'elbow' is vertically mirrored with 'shoulder'.
       Serial.println("Elbow record: ");
       Serial.print(arrayy[i]*0.33);
       Serial.println("");
